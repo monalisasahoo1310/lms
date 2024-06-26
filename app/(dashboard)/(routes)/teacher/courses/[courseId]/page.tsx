@@ -6,6 +6,7 @@ import { LayoutDashboard } from "lucide-react";
 import { TitleForm } from "./_components/title-form";
 import { DescriptionForm } from "./_components/description-form";
 import { ImageForm } from "./_components/image-form"
+import { CategoryForm } from "./_components/category-form";
 
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
@@ -45,8 +46,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
       const completedFields = requiredFields.filter(Boolean).length;
       const completionText = `(${completedFields}/${totalFields})`;
     //   const isComplete = requiredFields.every(Boolean);
-    return ( 
-        <div className="p-6">
+    return (
+      <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
             <h1 className="text-2xl font-medium">Course Setup</h1>
@@ -56,30 +57,33 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-        <div>
+          <div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-            <div>
+              <div>
                 <div className="flex items-center gap-x-2">
-                    <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl">Customize your course</h2>
+                  <IconBadge icon={LayoutDashboard} />
+                  <h2 className="text-xl">Customize your course</h2>
                 </div>
-                <TitleForm 
-                initialData={course}
-                courseId={course.id}
-                />
-                 <DescriptionForm 
+                <TitleForm initialData={course} courseId={course.id} />
+                <DescriptionForm
                   initialData={course}
-                  courseId={course.id} description={""}                />
-                <ImageForm 
-                initialData={course}
-                courseId={course.id}
+                  courseId={course.id}
+                  description={""}
                 />
+                <ImageForm initialData={course} courseId={course.id} />
+                <CategoryForm
+                  initialData={course}
+                  courseId={course.id}
+                  options={categories.map((category) => ({
+                    label: category.name,
+                    value: category.id,
+                  }))}
+                />
+              </div>
             </div>
-            </div>
+          </div>
         </div>
-        </div>
-        </div>
-
-     );
+      </div>
+    );
 }
 export default CourseIdPage;
